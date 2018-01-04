@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Vidly.Models;
+using Vidly.ViewModels;
 
 namespace Vidly.Controllers
 {
@@ -12,13 +13,32 @@ namespace Vidly.Controllers
         // GET: Movies/Random
         public ActionResult Random()
         {
-            var movie=  new Movie(){Name = "Shrek"};
+            // initialize a movie object
+            var movie=  new Movie{Name = "Shrek"};
+            //list of customer
+            List<Customer> customers = new List<Customer>
+            {
+                new Customer{Id = 101, Name = "Customer1"},
+                new Customer{Id = 102, Name = "Customer2"},
+                new Customer{Id = 103, Name = "Customer3"},
+            };
 
-            //return View(movie);  
+            //create a viewsmodel object and initalize it
+            var viewModel = new RandomMovieViewModel
+            {
+                Movie = movie,
+                Customers = customers
+            };
+            //we can pass data to view by controller property ViewData dictionary
+            //ViewData["Movie"] = movie; //like using a key for the data
+            //by usnig viewbag
+            //ViewBag.Movie = movie;
+            //it is better not using both of the above rather using model
+            return View(viewModel);  
             //return HttpNotFound();
             //return new EmptyResult();
             //return Content("Hello");
-            return RedirectToAction("Index", "Home", new{page= 1}); //third one is annonymous object
+            //return RedirectToAction("Index", "Home", new{page= 1}); //third one is annonymous object
         }
 
         //using parameter in the route

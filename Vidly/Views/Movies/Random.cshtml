@@ -1,11 +1,33 @@
 ﻿@using Vidly.Models
-@model Vidly.Models.Movie
+@*@model Vidly.Models.Movie - we are changing it as below*@ 
+@model Vidly.ViewModels.RandomMovieViewModel
 
 @{
     ViewBag.Title = "Random";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@*this is a view for random movie*@
-<h2>@Model.Name</h2>
+@*add some condition for the movie like whether it is popular for rendering class dynamically*@
+@{
+    var className = Model.Customers.Count > 2 ? "popular" : null;
+}
+<h2 class="@className">@Model.Movie.Name</h2>
+
+
+@if (Model.Customers.Count == 0)
+{
+    <p>No one has reneted this movie</p>
+}
+else
+{
+    <ul>
+        @foreach (var customer in Model.Customers)
+        {
+            <li>@customer.Name</li>
+        }
+    </ul>
+}
+
+@*by using viewdata*@
+@*<h2>@( ((Movie)ViewData["Movie"]).Name )</h2>*@
 
