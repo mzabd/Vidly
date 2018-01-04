@@ -39,8 +39,11 @@ namespace Vidly.Controllers
             return Content($"pageIndex={pageIndex} & sortBy={sortBy} ");
         }
 
+        
         //type: MVCAction4 for code snippet
         //for custom route: movies/released/{year}/{month}
+        //we will use attribute route with url and constrains
+        [Route("movies/released/{year}/{month:regex(\\d{2}):range(1,12)}")]
         public ActionResult ByReleasedDate(int year, byte month)
         {
             return Content(year + " / " + month);
